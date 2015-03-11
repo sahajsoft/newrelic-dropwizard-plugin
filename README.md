@@ -43,12 +43,12 @@ Additionally, New Relic has [documentation for doing it the Chef or Puppet way]
 
 The New Relic Platform does not natively support boolean metric values and this plugin represents boolean values using 
 0 (false) and 1 (true).  Conceptually, [this is somewhat problematic]
-(https://discuss.newrelic.com/t/how-to-report-yes-no-boolean-values-via-a-custom-plugin/4990/5) but, in practice, it 
+(https://discuss.newrelic.com/t/how-to-report-yes-no-boolean-values-via-a-custom-plugin/4990/6) but, in practice, it 
 mostly works.  Because the boolean values are treated as numbers and subject to aggregation, the NR dashboard UI can 
 occasionally report unexpected "boolean" values that are fractional.  We have not seen this lead to false alerting but 
 it can be confusing if you're not aware of it.
 
-Additionally, although NR appears to be in the the [process of revamping their alerting system]
+Additionally, although NR is in the [process of revamping their alerting system]
 (https://docs.newrelic.com/docs/alerts/new-relic-alerts-beta/getting-started/alerting-new-relic), NR's 
 current support for alerting on Plugin data is limited.  Specifically, it only supports sending notifications when the 
 value of some metric exceeds a specified threshold.  Alerting on values of 0 (or on the absence of data) is not possible.
