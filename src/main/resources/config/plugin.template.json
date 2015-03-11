@@ -1,0 +1,9 @@
+{
+    "agents": [
+        {
+            "name": "optional-if-absent-defaults-to-host",
+            "host": "localhost",
+            "adminPort": 8081
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "deadlocks": {
+        "healthy": true
+    },
+    "database": {
+        "healthy": true,
+        "message": "connection pool healthy"
+    },
+    "cache": {
+        "healthy": true,
+        "message": "actively evicting"
+    },
+    "anotherDatabase": {
+        "healthy": true
+    }
+}

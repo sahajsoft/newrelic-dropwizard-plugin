@@ -1,0 +1,10 @@
+{
+    "agents": [
+        {
+            "name" : "DropwizardOnLocalhost",
+            "host" : "localhost",
+            "adminPort" : 8081
+        }
+    ]
+}
+

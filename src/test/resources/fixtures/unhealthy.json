@@ -1,0 +1,22 @@
+{
+    "deadlocks": {
+        "healthy": true
+    },
+    "database": {
+        "healthy": true,
+        "message": "connection pool healthy"
+    },
+    "cache": {
+        "healthy": false,
+        "message": "actively evicting"
+    },
+    "anotherDatabase": {
+        "healthy": false,
+        "message": "Login failed for user",
+        "error": {
+            "message": "Login failed for user 'unknown'.",
+            "stack": [ "net.sourceforge.jtds.jdbc.SQLDiagnostic.addDiagnostic(SQLDiagnostic.java:372)",
+                "etc" ]
+        }
+    }
+}
