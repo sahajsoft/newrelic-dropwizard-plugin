@@ -3,8 +3,8 @@ A [New Relic (NR)](http://newrelic.com/) plugin for monitoring the health of [Dr
 applications over http using the application [Health Check](http://dropwizard.io/manual/core.html#health-checks) exposed 
 on the admin port at `/healthcheck`.
 
-*This plugin is explicitly designed solely as a mechanism to monitor and alert on the health check of Dropwizard 
-applications.*  It does not collect Dropwizard metrics or otherwise provide instrumentation of the JVM or server.
+*It does not collect Dropwizard `/metrics` data or otherwise provide instrumentation of the JVM or server.*  It provides 
+a mechanism to monitor and alert on the health of Dropwizard applications.
 
 For collecting general JVM metrics and application transactions, consider installing 
 [New Relic's Java Agent](https://docs.newrelic.com/docs/agents/java-agent/getting-started/new-relic-java). For collecting 

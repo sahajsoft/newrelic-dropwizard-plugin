@@ -5,7 +5,9 @@
     -->
     <id>bin</id>
     <formats>
+        <!-- Note: NPI supports either but, for unknown reasons, NPI broke when working with the tar.gz version -->
         <format>tar.gz</format>
+        <format>zip</format>
     </formats>
     <fileSets>
         <fileSet>

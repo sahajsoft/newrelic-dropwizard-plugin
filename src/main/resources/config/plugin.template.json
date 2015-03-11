@@ -1,7 +1,11 @@
 {
+    "_comments": [
+        "'name' attribute is optional (if absent, it will default to the same value as 'host')",
+        "'adminPort' attribute is optional (if absent, it will default to 8081)"
+    ],
     "agents": [
         {
-            "name": "optional-if-absent-defaults-to-host",
+            "name": "appName",
             "host": "localhost",
             "adminPort": 8081
         }

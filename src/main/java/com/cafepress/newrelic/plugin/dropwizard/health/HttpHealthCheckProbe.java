@@ -13,25 +13,27 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class HttpHealthCheckProbe implements HealthCheckProbe {
     private static final Logger logger = Logger.getLogger(HttpHealthCheckProbe.class);
 
-    private final WebTarget webTarget;
+    private final WebTarget healthCheckResource;
     private final ObjectMapper objectMapper;
 
     public HttpHealthCheckProbe(WebTarget adminWebTarget, ObjectMapper objectMapper) {
         checkNotNull(adminWebTarget);
         checkNotNull(objectMapper);
-        this.webTarget = adminWebTarget.path("/healthcheck");
+        this.healthCheckResource = adminWebTarget.path("/healthcheck");
         this.objectMapper = objectMapper;
     }
 
+    @Override
     public HealthCheckResponse probe() {
+        Response webResponse = null;
         try {
-            Response webResponse = webTarget.request(MediaType.APPLICATION_JSON_TYPE).get();
-            HealthCheckResponse healthCheckResponse = parseHealthCheck(webResponse);
-            webResponse.close();
-            return healthCheckResponse;
+            webResponse = healthCheckResource.request(MediaType.APPLICATION_JSON_TYPE).get();
+            return parseHealthCheck(webResponse);
         } catch (Exception e) {
-            logger.error(e, "Unable to get response from ", webTarget.getUri());
+            logger.error(e, "Unable to get response from ", healthCheckResource.getUri());
             return HealthCheckResponse.error();
+        } finally {
+            close(webResponse);
         }
     }
 
@@ -52,8 +54,20 @@ public class HttpHealthCheckProbe implements HealthCheckProbe {
         return HealthCheckResponse.from(response.getStatus(), healthCheckResult);
     }
 
+    private void close(Response webResponse) {
+        if (webResponse == null) {
+            return;
+        }
+
+        try {
+            webResponse.close();
+        } catch (RuntimeException e) {
+            logger.error(e, "Problem closing response");
+        }
+    }
+
     @Override
     public String toString() {
-        return "HttpHealthCheckProbe{" + "webTarget=" + webTarget + '}';
+        return "HttpHealthCheckProbe{" + "healthCheckResource=" + healthCheckResource + '}';
     }
 }
