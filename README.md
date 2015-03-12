@@ -20,10 +20,10 @@ the status code returned, and the states of the individual health checks are rec
 Since NR does not support any text values or annotation of metric values, it's impossible to capture health check
 messages within NR.
 
-Multiple Dropwizard applications can be monitored from the same plugin agent.  The plugin polls all configured Dropwizard 
-applications every minute and publishes the appropriate data into NR.  The plugin handles failures to connect to or 
-receive a response from a Dropwizard application; only applications that provide a valid 200 status code response are
-considered healthy.
+Multiple Dropwizard applications can be monitored from the same plugin instance.  The plugin polls all configured 
+Dropwizard applications every minute and publishes the appropriate data into NR.  The plugin handles failures to connect 
+to or receive a response from a Dropwizard application; only applications that provide a valid 200 status code response 
+are considered healthy.
 
 ## New Relic Dashboard UI
 
@@ -31,8 +31,9 @@ considered healthy.
 
 ## Installation
 
-This plugin is NPI-compliant and can be [installed using NPI]
-(https://docs.newrelic.com/docs/plugins/plugins-new-relic/installing-plugins/installing-npi-compatible-plugin).
+This plugin is available in [Plugin Central](https://rpm.newrelic.com/accounts/660580/plugins/directory/313) and is 
+NPI-compliant and can be [installed using NPI]
+(https://docs.newrelic.com/docs/plugins/plugins-new-relic/installing-plugins/installing-npi-compatible-plugin). 
 
 `npi install com.cafepress.newrelic.plugin.dropwizard`
 
@@ -53,7 +54,7 @@ Additionally, although NR is in the [process of revamping their alerting system]
 current support for alerting on Plugin data is limited.  Specifically, it only supports sending notifications when the 
 value of some metric exceeds a specified threshold.  Alerting on values of 0 (or on the absence of data) is not possible.
 
-The approach this plug takes is to publish an "unhealthiness" metric as a boolean value into NR and to then alert when 
+The approach this plugin takes is to publish an "unhealthiness" metric as a boolean value into NR and to then alert when 
 the threshold of the "unhealthiness" metric is greater than some very small value (eg 0.001).  In practice, this 
 delivers what you want: NR sends an alert whenever the application is unhealthy -- as with most NR alerts, there's a
 several minute lag after the application recovers before NR recovers to prevent excessive alerting in the case of a
@@ -61,9 +62,3 @@ flagging metric.
 
 In addition to the overall "unhealthiness" metric, the plugin publishes individual "healthiness" metrics and a http status 
 code metric for visualization within the UI.
-
-The final caveat (which applies to all NR plugins) is that NR doesn't allow alerting on the *absence* of data so if, for 
-example, the server that runs the plugin agent fails, you wouldn't receive an alert if one of your Dropwizard applications 
-became unhealthy nor would you receive an alert that the plugin was no longer sending data!  If this were to happen, 
-it would be visually obvious within the UI that there is no data but there's no automated way that I've discovered to 
-force NR to generate an alert when that happens.
