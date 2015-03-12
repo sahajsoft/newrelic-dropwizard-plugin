@@ -1,0 +1,6 @@
+{
+    "license_key": "test-account-key",
+    "log_level": "debug",
+    "log_file_name": "test.log",
+    "log_file_path": "/tmp/newrelic-dropwizard-plugin"
+}
