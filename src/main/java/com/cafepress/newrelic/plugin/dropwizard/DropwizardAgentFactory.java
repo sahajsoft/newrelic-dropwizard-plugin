@@ -20,16 +20,16 @@ public class DropwizardAgentFactory extends AgentFactory {
     @Override
     public Agent createConfiguredAgent(Map<String, Object> properties) throws ConfigurationException {
         String host = readHost(properties);
-        String adminContext = readAdminContext(properties);
-        Integer port = readAdminPort(properties);
+        String adminPath = readAdminPath(properties);
+        int port = readAdminPort(properties);
         String name = readName(properties, host);
 
-        HealthCheckProbe healthCheckProbe = healthCheckProbeFactory.build(host, port, adminContext);
+        HealthCheckProbe healthCheckProbe = healthCheckProbeFactory.build(host, port, adminPath);
         return new DropwizardAgent(name, healthCheckProbe);
     }
 
-    private String readAdminContext(Map<String, Object> properties) {
-        return (String)properties.get("adminContext");
+    private String readAdminPath(Map<String, Object> properties) {
+        return Strings.nullToEmpty((String) properties.get("adminPath"));
     }
 
     private String readName(Map<String, Object> properties, String defaultName) {
@@ -41,12 +41,12 @@ public class DropwizardAgentFactory extends AgentFactory {
         return (String) properties.get("host");
     }
 
-    private Integer readAdminPort(Map<String, Object> properties) {
+    private int readAdminPort(Map<String, Object> properties) {
         if (properties.containsKey("adminPort")) {
             return ((Number) properties.get("adminPort")).intValue();
         } else {
             // default Dropwizard admin port
-            return null;
+            return 8081;
         }
     }
 }

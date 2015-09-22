@@ -2,7 +2,6 @@ package com.cafepress.newrelic.plugin.dropwizard.health;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.google.common.base.Strings;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -15,19 +14,12 @@ public class HealthCheckProbeFactory {
         this.objectMapper = objectMapper;
     }
 
-    public HttpHealthCheckProbe build(String host, Integer port, String adminContext) {
-        String url = "http://" + host ;
-        if(port!=null) {
-            url += ":" + port;
-        }
-        if(!Strings.isNullOrEmpty(adminContext)) {
-            url += "/" + adminContext;
-        }
+    public HttpHealthCheckProbe build(String host, int port, String adminPath) {
         WebTarget adminWebTarget = ClientBuilder
                 .newBuilder()
                 .register(new JacksonJsonProvider(new ObjectMapper()))
                 .build()
-                .target(url);
+                .target("http://" + host + ":" + port + adminPath);
 
         return new HttpHealthCheckProbe(adminWebTarget, objectMapper);
     }

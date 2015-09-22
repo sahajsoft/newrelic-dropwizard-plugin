@@ -1,13 +1,14 @@
 {
     "_comments": [
         "'name' attribute is optional (if absent, it will default to the same value as 'host')",
-        "'adminPort' attribute is optional (if absent, it will default to 8081)"
+        "'adminPort' attribute is optional (if absent, it will default to 8081)",
+        "'adminPath' attribute is optional. Use to specify a non-standard admin url path (such as when serving multiple dropwizard applications from the same host/port). For example, if set to '/myApp', health checks would be made using '/myApp/healthcheck'"
     ],
     "agents": [
         {
             "name": "appName",
             "host": "localhost",
-            "adminContext" : "adminContext",
+            "adminPath" : "/adminPath",
             "adminPort": 8081
         }
     ]
